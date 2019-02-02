@@ -7,7 +7,12 @@ function init() {
 }
 
 function applyHandlers() {
-  document.querySelector(".btn").addEventListener("click", submitButtonHandler);
+  document
+    .querySelector(".btn-primary")
+    .addEventListener("click", submitButtonHandler);
+  document
+    .querySelector(".btn-warning")
+    .addEventListener("click", clearButtonHandler);
 }
 
 function submitButtonHandler(e) {
@@ -17,24 +22,54 @@ function submitButtonHandler(e) {
   getWeatherData(zipcode);
 }
 
+function clearButtonHandler(e) {
+  e.preventDefault();
+  document.querySelector("input").value = "";
+  document.querySelector(".weather-content > .col-8").innerHTML = "";
+}
+
 function getWeatherData(zipcode) {
-  const weatherData = fetch(
+  fetch(
     `https://api.openweathermap.org/data/2.5/weather?zip=${zipcode},us&appid=${
-      keys.weather_api
+    keys.weather_api
     }`,
-    { method: "get" }
+    {
+      method: "get"
+    }
   )
     .then(res => res.json())
     .then(data => {
-      const { name } = data;
-      const weatherDiv = document.querySelector(".weather-content");
-      const city = document.createElement("h1");
-
+      console.log("data", data);
+      const {
+        name,
+        main: { temp, temp_min, temp_max }
+      } = data;
+      const weatherDiv = document.querySelector(".weather-content > .col-8");
       weatherDiv.innerHTML = "";
-      city.classList.add("text-center");
-      city.textContent = name;
 
-      weatherDiv.appendChild(city);
+
+      const city = document.createElement("h1");
+      const temperature = document.createElement('h1');
+
+      [name, temp, temp_min, temp_max].forEach(item => {
+        const newElement = document.createElement('h1');
+        newElement.classList.add('text-center');
+        newElement.textContent = item;
+        weatherDiv.appendChild(newElement);
+      })
+
+      // temperature.classList.add('text-center');
+      // city.classList.add("text-center");
+      // temperature.textContent = `${convertToFahrenheit(temp)}°F`;
+      // city.textContent = name;
+
+      // weatherDiv.appendChild(city);
+      // weatherDiv.appendChild(temperature);
     })
     .catch(err => console.log(err));
+}
+
+function convertToFahrenheit(temp) {
+  temp = Math.floor((parseInt(temp) - 273.15) * (9 / 5) + 32);
+  return temp;
 }
