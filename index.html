@@ -4,7 +4,7 @@
 <head>
   <meta charset="utf-8" />
   <meta http-equiv="X-UA-Compatible" content="IE=edge">
-  <title>Page Title</title>
+  <title>Weather App</title>
   <meta name="viewport" content="width=device-width, initial-scale=1">
   <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.2.1/css/bootstrap.min.css" integrity="sha384-GJzZqFGwb1QTTN6wy59ffF1BuGJpLSa9DkKMp0DgiMDm4iYMj70gZWKYbI706tWS"
     crossorigin="anonymous">
@@ -15,20 +15,32 @@
 
 <body>
 
-  <div class="container justify-content-center align-items-center">
-    <div class="row h-100">
-      <div class="col-12">
+  <div class="container">
+    <div class="row justify-content-center">
+      <div class="col-8">
         <h1 class="text-center">Weather App</h1>
         <form>
           <div class="form-group">
             <label for="zipCode">Zip Code</label>
-            <input type="text" class="form-control" placeholder="Zip Code">
+            <input type="text" class="form-control" placeholder="Enter Zip Code Here...">
           </div>
-          <button class="btn btn-primary">Submit</button>
+          <div class="text-center">
+            <button class="btn btn-lg btn-primary">Submit</button>
+            <button class="btn btn-lg btn-warning">Clear</button>
+          </div>
         </form>
       </div>
     </div>
-    <div class="row h-100 weather-content"></div>
+
+    <div class="row justify-content-center weather-content">
+      <div class="col-8">
+        <h3 class="city text-center"></h3>
+        <h3 class="temperature text-center"></h3>
+      </div>
+    </div>
+
+
+
   </div>
 
 
